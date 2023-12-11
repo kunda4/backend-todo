@@ -11,5 +11,10 @@ export class TasksRepository{
         return allTask
     }
 
+    async findOneTask(id:string){
+        const allTasks = await readFile("db.json", "utf-8")
+        const allTask =  allTasks.trim()? JSON.parse(allTasks) : {}
+        return allTask[id]
+    }
   
 }
