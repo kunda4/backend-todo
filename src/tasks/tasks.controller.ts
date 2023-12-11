@@ -1,6 +1,6 @@
 import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
-import { createTaskDtos } from './tdos/create-task.dtos';
+import { CreateTaskDto } from './tdos/create-task.dtos';
 
 @Controller('tasks')
 export class TasksController {
@@ -12,7 +12,7 @@ export class TasksController {
     }
 
     @Get('/:id')
-    async fetchOneTask(@Param() id:string){
+    async fetchOneTask(@Param('id') id:string){
        const message = await this.taskService.findOneTask(id)
         if(!message){
             throw new NotFoundException("the id doesn't exist")
@@ -21,7 +21,7 @@ export class TasksController {
     }
 
     @Post()
-    createTask(@Body() body:createTaskDtos){
-        return this.taskService.createTask(body.task)
+    createTask(@Body() body:CreateTaskDto){
+        return this.taskService.createTask(body)
     }
 }

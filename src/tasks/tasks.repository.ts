@@ -1,29 +1,25 @@
 import { Injectable } from "@nestjs/common";
-import { readFile, writeFile } from "fs/promises";
 import { v4 as uuidv4}  from 'uuid'
+import { CreateTaskDto } from "./tdos/create-task.dtos";
+import { db } from "src/main";
 
 @Injectable()
 export class TasksRepository{
 
     async findAllTasks(){
-        const allTasks = await readFile("db.json", "utf-8")
-        const allTask = allTasks.trim()? JSON.parse(allTasks) : {}
-        return allTask
+        const allTasks = await db.getData('/tasks')
+        return allTasks
     }
 
     async findOneTask(id:string){
-        const allTasks = await readFile("db.json", "utf-8")
-        const allTask =  allTasks.trim()? JSON.parse(allTasks) : {}
-        return allTask[id]
+        const allTasks = await db.getData(`/tasks[${id}]`)
+        return allTasks
     }
 
-    async createTask(body:string){
-        const allTasks = await readFile('db.json', 'utf-8')
-        const allTask = allTasks.trim()? JSON.parse(allTasks) : {}
+    async createTask(body:CreateTaskDto){
         const id = uuidv4()
-        
-        allTask[id] = {id, body}
-        await writeFile('db.json', JSON.stringify(allTask))
+        const newTasks = {id, ...body}
+        return db.push('/tasks[]', newTasks, true) 
     }
   
 }

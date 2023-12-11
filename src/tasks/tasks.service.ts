@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { TasksRepository } from './tasks.repository';
+import { CreateTaskDto } from './tdos/create-task.dtos';
 
 @Injectable()
 export class TasksService {
@@ -13,7 +14,7 @@ export class TasksService {
         return this.tasksRepo.findOneTask(id)
     }
 
-    createTask(body:string){
+    createTask(body:CreateTaskDto){
         return this.tasksRepo.createTask(body)
     }
 

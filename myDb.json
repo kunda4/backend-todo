@@ -1,0 +1,16 @@
+{
+    "tasks": [
+        {
+            "id": "003c91dd-6c51-4346-a37a-32fd14167883",
+            "title": "Authorization",
+            "status": "OPEN",
+            "description": "Authorized user to modify blogs"
+        },
+        {
+            "id": "33d26625-e673-495d-87dc-f5fdba646cc8",
+            "title": "Authorization",
+            "status": "OPEN",
+            "description": "Authorized user to delete blogs"
+        }
+    ]
+}
