@@ -16,5 +16,14 @@ export class TasksRepository{
         const allTask =  allTasks.trim()? JSON.parse(allTasks) : {}
         return allTask[id]
     }
+
+    async createTask(body:string){
+        const allTasks = await readFile('db.json', 'utf-8')
+        const allTask = allTasks.trim()? JSON.parse(allTasks) : {}
+        const id = uuidv4()
+        
+        allTask[id] = {id, body}
+        await writeFile('db.json', JSON.stringify(allTask))
+    }
   
 }

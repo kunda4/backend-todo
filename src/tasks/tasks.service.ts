@@ -13,4 +13,8 @@ export class TasksService {
         return this.tasksRepo.findOneTask(id)
     }
 
+    createTask(body:string){
+        return this.tasksRepo.createTask(body)
+    }
+
 }
