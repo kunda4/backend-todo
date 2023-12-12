@@ -12,8 +12,9 @@ export class TasksRepository{
     }
 
     async findOneTask(id:string){
-        const allTasks = await db.getData(`/tasks[${id}]`)
-        return allTasks
+        const allTasks = await db.getData(`/tasks`)
+        const oneTask = allTasks.find((task:any)=> task.id === id)
+        return oneTask
     }
 
     async createTask(body:CreateTaskDto){
