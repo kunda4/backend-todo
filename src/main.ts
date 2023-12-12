@@ -5,7 +5,7 @@ import { JsonDB, Config } from 'node-json-db';
 
 export const db = new JsonDB(new Config("myDb", true, true, '/'));
 db.push('/tasks', [])
-
+db.push('/categories',[])
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.useGlobalPipes(new ValidationPipe({
