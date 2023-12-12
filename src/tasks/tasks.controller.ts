@@ -1,6 +1,7 @@
 import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './tdos/create-task.dtos';
+import { db } from 'src/main';
 
 @Controller('tasks')
 export class TasksController {
@@ -19,13 +20,20 @@ export class TasksController {
         }
         return message
     }
-    @Delete()
-    async deleteOneTask(@Param('id') id:string){
-        const task = await this.taskService.deleteOneTask(id)
-        if(!task){
-            throw new NotFoundException('the id does not exist')
-        }
-        return {message: 'The Task has been deleted successfully!!!'}
+    @Delete('/:id')
+    async deleteOneTask(@Param('id') id: string) {
+      const taskIndex = await this.taskService.deleteOneTask(id);
+  
+      if (taskIndex === -1) {
+        throw new NotFoundException('Task with the given ID does not exist');
+      }
+  
+      const tasks = await db.getData('/tasks');
+      tasks.splice(taskIndex, 1);
+  
+      await db.push('/tasks', tasks, true);
+  
+      return { message: 'The Task has been deleted successfully!!!' };
     }
 
     @Post()
