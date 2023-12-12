@@ -16,6 +16,7 @@ export class CategoriesRepository{
         const oneCategories = allCategories.find((Categories:any)=> Categories.id === id)
         return oneCategories
     }
+
     async deleteOneCategories(id:string){
         const allCategories = await db.getData('/categories')
         const oneCategories = allCategories.find((Categories:any)=> Categories.id === id)
@@ -24,7 +25,7 @@ export class CategoriesRepository{
 
     async createCategories(body: CreateCategoriesDto){
         const id = uuidv4()
-        const newCategories = {id, ...body}
+        const newCategories = {id, body}
         return db.push('/categories[]', newCategories, true) 
     }
   

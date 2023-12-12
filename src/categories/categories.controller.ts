@@ -28,7 +28,7 @@ export class CategoriesController {
     }
     @Delete('/:id')
     async deleteOneTask(@Param('id') id: string) {
-      const taskIndex = await this.categoriesController.deleteOneCategories(id);
+      const taskIndex = await this.categoriesController.deleteOneCategories (id);
   
       if (taskIndex === -1) {
         throw new NotFoundException('Task with the given ID does not exist');

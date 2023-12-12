@@ -17,4 +17,7 @@ export class CreateTaskDto {
 
   @IsString()
   description: string;
+
+  @IsString()
+  categoryId: string;
 }

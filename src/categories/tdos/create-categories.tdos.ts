@@ -1,8 +1,6 @@
 import { IsString } from "class-validator"
 
-export class CreateCategoriesDto{
-    @IsString()
-    id:string
+export class CreateCategoriesDto{    
     @IsString()
     name:string
 }
