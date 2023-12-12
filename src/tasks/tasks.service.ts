@@ -14,6 +14,10 @@ export class TasksService {
         return this.tasksRepo.findOneTask(id)
     }
 
+    deleteOneTask(id:string){
+        return this.tasksRepo.deleteOneTask(id)
+    }
+
     createTask(body:CreateTaskDto){
         return this.tasksRepo.createTask(body)
     }

@@ -16,6 +16,11 @@ export class TasksRepository{
         const oneTask = allTasks.find((task:any)=> task.id === id)
         return oneTask
     }
+    async deleteOneTask(id:string){
+        const allTasks = await db.getData('/tasks')
+        const oneTask = allTasks.find((task:any)=> task.id === id)
+        return oneTask
+    }
 
     async createTask(body:CreateTaskDto){
         const id = uuidv4()

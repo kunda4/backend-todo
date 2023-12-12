@@ -1,4 +1,4 @@
-import { Body, Controller, Get, NotFoundException, Param, Post } from '@nestjs/common';
+import { Body, Controller, Delete, Get, NotFoundException, Param, Post } from '@nestjs/common';
 import { TasksService } from './tasks.service';
 import { CreateTaskDto } from './tdos/create-task.dtos';
 
@@ -18,6 +18,14 @@ export class TasksController {
             throw new NotFoundException("the id doesn't exist")
         }
         return message
+    }
+    @Delete()
+    async deleteOneTask(@Param('id') id:string){
+        const task = await this.taskService.deleteOneTask(id)
+        if(!task){
+            throw new NotFoundException('the id does not exist')
+        }
+        return {message: 'The Task has been deleted successfully!!!'}
     }
 
     @Post()
