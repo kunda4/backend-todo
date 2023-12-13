@@ -45,6 +45,8 @@ export class CategoriesRepository{
         try {
             const allCategories = await db.getData('/categories')
             const allTasks = await db.getData('/tasks')
+            const categoriesToDelete = allCategories.find((Category:any)=>Category.id===id)
+            if(!categoriesToDelete) throw new NotFoundException(`Category with id: ${id} not found`)
             const isCategoryUsedInTasks = allTasks.some((task: any) => task.categoryId === id);
             if (isCategoryUsedInTasks) {
               throw new ConflictException('Cannot delete category. It is used in tasks.');
