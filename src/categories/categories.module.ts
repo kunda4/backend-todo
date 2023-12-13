@@ -1,10 +1,10 @@
-import { Module } from '@nestjs/common';
+import { Module, forwardRef } from '@nestjs/common';
 import { CategoriesService } from './categories.service';
 import { CategoriesController } from './categories.controller';
 import { CategoriesRepository } from './categories.repository';
 
 @Module({
   providers: [CategoriesService, CategoriesRepository],
-  controllers: [CategoriesController]
+  controllers: [CategoriesController],
 })
 export class CategoriesModule {}

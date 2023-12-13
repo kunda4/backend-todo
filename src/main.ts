@@ -2,18 +2,12 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ValidationPipe } from '@nestjs/common';
-import { JsonDB, Config } from 'node-json-db';
-
-
-export const db = new JsonDB(new Config("myDb", true, true, '/'));
-
-export const initializeDb = async () =>{
-if(!(await db.exists('/categories'))) db.push('/categories', [])
-if(!(await db.exists('/tasks'))) db.push('/tasks',[])
-}
+import { initializeDb } from './Helper/dataBase';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
+
+  await initializeDb()
   app.useGlobalPipes(new ValidationPipe({
     whitelist:true
   }))

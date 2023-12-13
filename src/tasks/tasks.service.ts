@@ -1,25 +1,27 @@
-import { Injectable } from '@nestjs/common';
+import { Inject, Injectable, forwardRef } from '@nestjs/common';
 import { TasksRepository } from './tasks.repository';
 import { CreateTaskDto } from './tdos/create-task.dtos';
 
 @Injectable()
 export class TasksService {
-    constructor(public tasksRepo: TasksRepository){}
+  constructor(
+    @Inject(forwardRef(() => TasksRepository))
+    public tasksRepo: TasksRepository
+    ) {}
 
-    findAllTasks(){
-        return this.tasksRepo.findAllTasks()
-    }
+  findAllTasks() {
+    return this.tasksRepo.findAllTasks();
+  }
 
-    findOneTask(id:string){
-        return this.tasksRepo.findOneTask(id)
-    }
+  findOneTask(id: string) {
+    return this.tasksRepo.findOneTask(id);
+  }
 
-    deleteOneTask(id:string){
-        return this.tasksRepo.deleteOneTask(id)
-    }
+  deleteOneTask(id: string) {
+    return this.tasksRepo.deleteOneTask(id);
+  }
 
-    createTask(body:CreateTaskDto){
-        return this.tasksRepo.createTask(body)
-    }
-
+  createTask(body: CreateTaskDto) {
+    return this.tasksRepo.createTask(body);
+  }
 }
