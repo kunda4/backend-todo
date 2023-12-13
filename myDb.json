@@ -1,4 +1,74 @@
 {
-    "tasks": [],
-    "categories": []
+    "tasks": [
+        {
+            "id": "affd65d6-7c33-4bd7-a75c-c7a6d7029d13",
+            "categoryId": "must be a string",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "0f539235-3f89-460b-9944-e68d50249e83",
+            "categoryId": "must be a string",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "4916d727-5749-48d3-81ec-d4ade0db5cca",
+            "categoryId": "f93ed5b6-5585-45e0-b62e-98afedd15259",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "cf513482-1f05-4935-8450-00209cd262f2",
+            "categoryId": "59fdf414-cd7d-4215-bec4-2233a688512a",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "b6fd9a2a-2a30-44cc-b01b-544cafecf9d5",
+            "categoryId": "59fdf414-cd7d-4215-bec4-2233a688512a",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "3346cb65-a4e1-4632-b60a-b4cc6dedf993",
+            "categoryId": "838fb0f4-162d-4370-b7cd-d5479b59961b",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "c378eff7-a6c2-423f-8c86-f1d3adc0df5e",
+            "categoryId": "838fb0f4-162d-4370-b7cd-d5479b59961b",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        },
+        {
+            "id": "f07dc63f-4ecc-4497-a0f0-68e0cbed1e7a",
+            "categoryId": "225f5d2f-916f-4834-b148-75aa1ee4be23",
+            "status": "OPEN",
+            "title": "must be a string",
+            "description": "must be a string"
+        }
+    ],
+    "categories": [
+        {
+            "id": "838fb0f4-162d-4370-b7cd-d5479b59961b",
+            "body": {
+                "name": "must be a string"
+            }
+        },
+        {
+            "id": "d50547c9-887e-4241-883d-67933feb7de9",
+            "body": {
+                "name": "Authorizationnnnn"
+            }
+        }
+    ]
 }

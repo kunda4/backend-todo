@@ -1,4 +1,4 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { v4 as uuidv4}  from 'uuid'
 import { CreateTaskDto } from "./tdos/create-task.dtos";
 import { db } from "src/main";
@@ -23,9 +23,17 @@ export class TasksRepository{
     }
 
     async createTask(body:CreateTaskDto){
-        const id = uuidv4()
-        const newTasks = {id, ...body}
-        return db.push('/tasks[]', newTasks, true) 
+        try {
+            const id = uuidv4()
+            const categoryId = body.categoryId
+            const newTasks = {id,categoryId, ...body}
+            return db.push('/tasks[]', newTasks, true) 
+            
+        } catch (error) {
+            throw new NotFoundException(`did not create task ${error}`)
+            
+        }
+  
     }
   
 }
