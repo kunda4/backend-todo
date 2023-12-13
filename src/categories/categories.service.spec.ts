@@ -23,7 +23,7 @@ describe('CategoriesService', () => {
 
   it('should create a category', async () => {
     const createCategoriesDto: CreateCategoriesDto = {
-      name: 'category name',
+      name: 'Category any name',
     };
 
     jest
