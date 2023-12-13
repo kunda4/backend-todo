@@ -1,4 +1,4 @@
-import { ConflictException, Injectable } from "@nestjs/common";
+import { ConflictException, Injectable, NotFoundException } from "@nestjs/common";
 import { v4 as uuidv4}  from 'uuid'
 import { db } from "src/main";
 import { CreateCategoriesDto } from "./tdos/create-categories.tdos";
@@ -14,6 +14,9 @@ export class CategoriesRepository{
     async findOneCategories(id:string){
         const allCategories = await db.getData(`/categories`)
         const oneCategories = allCategories.find((Categories:any)=> Categories.id === id)
+        if(!oneCategories){
+            throw new NotFoundException("the id doesn't exist")
+        }
         return oneCategories
     }
 
@@ -21,7 +24,6 @@ export class CategoriesRepository{
         const allCategories = await db.getData('/categories')
         const allTasks = await db.getData('/tasks')
         const isCategoryUsedInTasks = allTasks.some((task: any) => task.categoryId === id);
-
         if (isCategoryUsedInTasks) {
           throw new ConflictException('Cannot delete category. It is used in tasks.');
         }
@@ -33,10 +35,8 @@ export class CategoriesRepository{
     }
 }
     async createCategories(body: CreateCategoriesDto){
-        const id = uuidv4()
-        console.log(id)
-        const newCategories = {id, body}
-        console.log(newCategories)
+        const id = uuidv4() 
+        const newCategories = {id, ...body}
         return db.push('/categories[]', newCategories, true) 
     }
   

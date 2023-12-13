@@ -32,19 +32,15 @@ export class CategoriesController {
     @ApiOperation({ summary: 'Get a category by ID', description: 'Get details of a category by its ID' })
     @ApiResponse({ status: 200, description: 'Successful operation', type: CreateCategoriesDto })
     @ApiResponse({ status: 404, description: 'Category not found' })
-    async fetchOneTask(@Param('id') id:string){
-       const message = await this.categoriesController.getOneCategories(id)
-        if(!message){
-            throw new NotFoundException("the id doesn't exist")
-        }
-        return message
+     fetchOneTask(@Param('id') id:string){
+       return this.categoriesController.getOneCategories(id)
     }
     @Delete('/:id')
     @ApiOperation({ summary: 'Delete a category by ID', description: 'Delete a category by its ID' })
     @ApiResponse({ status: 200, description: 'Category deleted successfully' })
     @ApiResponse({ status: 404, description: 'Category not found' })
-    async deleteOneTask(@Param('id') id: string) {
-      const oneTask = await this.categoriesController.deleteOneCategories(id);
+     deleteOneTask(@Param('id') id: string) {
+      return this.categoriesController.deleteOneCategories(id);
     }
 
     
