@@ -1,4 +1,4 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
+import { BadRequestException, HttpException, HttpStatus, Injectable, NotFoundException } from "@nestjs/common";
 import { v4 as uuidv4}  from 'uuid'
 import { CreateTaskDto } from "./tdos/create-task.dtos";
 import { db } from "src/main";
@@ -7,35 +7,76 @@ import { db } from "src/main";
 export class TasksRepository{
 
     async findAllTasks(){
-        const allTasks = await db.getData('/tasks')
-        return allTasks
+        try {
+            const allTasks = await db.getData('/tasks')
+            if(!allTasks){
+                throw new NotFoundException('No tasks found')
+            }
+            return allTasks
+        } catch (error) {
+            if(error instanceof NotFoundException){
+                throw error
+            }else{
+                throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+        }
+
     }
 
     async findOneTask(id:string){
-        const allTasks = await db.getData(`/tasks`)
-        const oneTask = allTasks.find((task:any)=> task.id === id)
-        if(!oneTask){
-            throw new NotFoundException("the id doesn't exist")
+        try {
+            const allTasks = await db.getData(`/tasks`)
+            const oneTask = allTasks.find((task:any)=> task.id === id)
+            if(!oneTask){
+                throw new NotFoundException("the id doesn't exist")
+            }
+            return oneTask
+            
+        } catch (error) {
+            if(error instanceof NotFoundException){
+                throw error
+            }else{
+                throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR)
+            }
         }
-        return oneTask
+
     }
     async deleteOneTask(id:string){
-        const allTasks = await db.getData('/tasks')
-        const updatedTask = allTasks.filter((task:any)=> task.id !== id)  
-        await db.push('/tasks', updatedTask, true);
-  
-        return { message: 'The Task has been deleted successfully!!!' };
+        try {
+            const allTasks = await db.getData('/tasks')
+            const taskToDelete = allTasks.find((task:any)=>task.id ===id)
+            if(!taskToDelete){
+                throw new NotFoundException(`Task with Id ${id} not found`)
+            }
+            const updatedTask = allTasks.filter((task:any)=> task.id !== id)  
+            await db.push('/tasks', updatedTask, true);
+      
+            return { message: 'The Task has been deleted successfully!!!' };
+        } catch (error) {
+            if(error instanceof NotFoundException){
+                throw error;
+            }else{
+                throw new HttpException('Internal Server Error', HttpStatus.INTERNAL_SERVER_ERROR)
+            }
+
+        }
+
     }
 
-         createTask(body:CreateTaskDto){
+        async createTask(body:CreateTaskDto){
         try {
             const id = uuidv4()
             const categoryId = body.categoryId
             const newTasks = {id,categoryId, ...body}
-            return db.push('/tasks[]', newTasks, true) 
+            await db.push('/tasks[]', newTasks, true) 
+            return {message: 'Task created successfully!'};
             
         } catch (error) {
-            throw new NotFoundException(`did not create task ${error}`)
+            if(error instanceof BadRequestException){
+                throw new BadRequestException(`Bad request: ${error.message}`);
+            }else{
+                throw new NotFoundException(`Failed to create task: ${error}`)
+            }
             
         }
   
