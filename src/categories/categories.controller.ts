@@ -11,7 +11,6 @@ import {
 import { CategoriesService } from './categories.service';
 import { CreateCategoriesDto } from './tdos/create-categories.tdos';
 import { ApiResponse, ApiBody, ApiTags, ApiOperation } from '@nestjs/swagger';
-import { CategoriesRepository } from './categories.repository';
 
 @ApiTags('Categories')
 @Controller('categories')
@@ -49,7 +48,7 @@ export class CategoriesController {
     type: CreateCategoriesDto,
     description: 'Json structure for user object',
   })
-  createCategories(@Body() body: CreateCategoriesDto) {
+  createCategory(@Body() body: CreateCategoriesDto) {
     return this.categoriesController.createCategories(body);
   }
   @Get('/:id')
@@ -63,7 +62,7 @@ export class CategoriesController {
     type: CreateCategoriesDto,
   })
   @ApiResponse({ status: 404, description: 'Category not found' })
-  fetchOneTask(@Param('id') id: string) {
+  fetchOneCategory(@Param('id') id: string) {
     return this.categoriesController.getOneCategories(id);
   }
   @Delete('/:id')
@@ -73,7 +72,7 @@ export class CategoriesController {
   })
   @ApiResponse({ status: 200, description: 'Category deleted successfully' })
   @ApiResponse({ status: 404, description: 'Category not found' })
-  deleteOneTask(@Param('id') id: string) {
+  deleteOneCategory(@Param('id') id: string) {
     return this.categoriesController.deleteOneCategories(id);
   }
 }

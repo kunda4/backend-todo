@@ -40,7 +40,7 @@ describe('TasksService', () => {
 
   describe('findOneTask', () => {
     it('should call findOneTask method of TasksRepository with the provided id', async () => {
-      const taskId = 'some-task-id';
+      const taskId = 'wertyui';
       await tasksService.findOneTask(taskId);
       expect(tasksRepo.findOneTask).toHaveBeenCalledWith(taskId);
     });
@@ -48,7 +48,7 @@ describe('TasksService', () => {
 
   describe('deleteOneTask', () => {
     it('should call deleteOneTask method of TasksRepository with the provided id', async () => {
-      const taskId = 'some-task-id';
+      const taskId = 'sdfghjkl';
       await tasksService.deleteOneTask(taskId);
       expect(tasksRepo.deleteOneTask).toHaveBeenCalledWith(taskId);
     });
@@ -57,10 +57,10 @@ describe('TasksService', () => {
   describe('createTask', () => {
     it('should call createTask method of TasksRepository with the provided body', async () => {
       const taskBody: CreateTaskDto = {
-        title: '',
+        title: 'yui',
         status: TaskStatus.OPEN,
-        description: '',
-        categoryId: ''
+        description: 'sdfghj',
+        categoryId: 'cvbnm'
       };
       await tasksService.createTask(taskBody);
       expect(tasksRepo.createTask).toHaveBeenCalledWith(taskBody);
