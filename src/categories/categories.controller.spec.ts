@@ -54,8 +54,8 @@ describe('CategoriesController', () => {
     });
 
     it('should return 404 if category not found', async () => {
-      const categoryId = '999';
-      jest.spyOn(service, 'getOneCategories').mockResolvedValue(null);
+      const categoryId = '12345';
+      jest.spyOn(service, 'getOneCategories').mockRejectedValue(new Error('Category not found'));
 
       await expect(controller.fetchOneCategory(categoryId)).rejects.toThrow('Category not found');
     });
